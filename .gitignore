@@ -1,0 +1,84 @@
+# Visual Studio
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build outputs
+[Bb]in/
+[Oo]bj/
+artifacts/
+
+# Rider
+.idea/
+*.iml
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+
+# dotnet
+project.fragment.lock.json
+.publish
+deploy/
+
+# Visual Studio Code workspace
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# User-specific files
+*.log
+*.vsix
+
+# Local settings and secrets
+local.settings.json
+secrets.json
+appsettings.Development.json
+appsettings.Local.json
+
+# Database files
+*.mdf
+*.ldf
+*.db
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+
+# Others
+*.pid
+*.seed
+
+# Publish output
+publish/
+
+# Node
+node_modules/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Ignore JetBrains IDE config
+.idea/
+
+# Ignore test results
+TestResults/
+
+# Ignore coverage results
+coverage*/
+
+# End of file
