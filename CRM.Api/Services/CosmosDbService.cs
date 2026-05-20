@@ -47,7 +47,7 @@ public class CosmosDbService
     public async Task<List<Customer>> SearchCustomersAsync(string search)
     {
         var query = new QueryDefinition(
-            "SELECT * FROM c WHERE CONTAINS(c.name, @search) OR CONTAINS(c.salesPerson.name, @search)")
+            "SELECT * FROM c WHERE CONTAINS(c.Name, @search, true) OR CONTAINS(c.SalesPerson.Name, @search, true)")
             .WithParameter("@search", search);
 
         var iterator = _container.GetItemQueryIterator<Customer>(query);
