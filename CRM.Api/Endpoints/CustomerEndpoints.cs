@@ -11,37 +11,37 @@ public static class CustomerEndpoints
         var group = routes.MapGroup("/customers")
             .WithTags("Customers");
 
-        group.MapGet("", async (ICustomerService customerService) =>
+        group.MapGet("", async (CosmosDbService db) =>
         {
-            var customers = await customerService.GetAllCustomersAsync();
+            var customers = await db.GetCustomersAsync();
             return Results.Ok(customers.Select(ToResponse));
         });
 
-        group.MapPost("", async (CustomerRequest request, ICustomerService customerService) =>
+        group.MapPost("", async (CustomerRequest request, CosmosDbService db) =>
         {
             var customer = ToCustomer(request);
-            await customerService.AddCustomerAsync(customer);
+            await db.AddCustomerAsync(customer);
 
             return Results.Ok(ToResponse(customer));
         });
 
-        group.MapGet("/search", async (string search, ICustomerService customerService) =>
+        group.MapGet("/search", async (string search, CosmosDbService db) =>
         {
-            var customers = await customerService.SearchCustomersAsync(search);
+            var customers = await db.SearchCustomersAsync(search);
             return Results.Ok(customers.Select(ToResponse));
         });
 
-        group.MapPut("/{id}", async (string id, CustomerRequest request, ICustomerService customerService) =>
+        group.MapPut("/{id}", async (string id, CustomerRequest request, CosmosDbService db) =>
         {
             var updatedCustomer = ToCustomer(request, id);
-            await customerService.UpdateCustomerAsync(updatedCustomer);
+            await db.UpdateCustomerAsync(updatedCustomer);
 
             return Results.Ok(ToResponse(updatedCustomer));
         });
 
-        group.MapDelete("/{id}", async (string id, ICustomerService customerService) =>
+        group.MapDelete("/{id}", async (string id, CosmosDbService db) =>
         {
-            await customerService.DeleteCustomerAsync(id);
+            await db.DeleteCustomerAsync(id);
             return Results.Ok();
         });
 
@@ -69,16 +69,20 @@ public static class CustomerEndpoints
 
     private static CustomerResponse ToResponse(Customer customer)
     {
-        return new CustomerResponse(
-            customer.Id,
-            customer.Name,
-            customer.Title,
-            customer.Phone,
-            customer.Email,
-            customer.Address,
-            new SalesPersonDto(
-                customer.SalesPerson.Name,
-                customer.SalesPerson.Phone,
-                customer.SalesPerson.Email));
+        return new CustomerResponse
+        {
+            Id = customer.Id,
+            Name = customer.Name,
+            Title = customer.Title,
+            Phone = customer.Phone,
+            Email = customer.Email,
+            Address = customer.Address,
+            SalesPerson = new SalesPersonDto
+            {
+                Name = customer.SalesPerson.Name,
+                Phone = customer.SalesPerson.Phone,
+                Email = customer.SalesPerson.Email
+            }
+        };
     }
 }

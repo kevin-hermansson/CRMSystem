@@ -1,6 +1,27 @@
 @CRM.Api_HostAddress = http://localhost:5212
 
-GET {{CRM.Api_HostAddress}}/weatherforecast/
+GET {{CRM.Api_HostAddress}}/customers
 Accept: application/json
 
 ###
+
+GET {{CRM.Api_HostAddress}}/customers/search?search=alex
+Accept: application/json
+
+###
+
+POST {{CRM.Api_HostAddress}}/customers
+Content-Type: application/json
+
+{
+  "name": "Alex Morgan",
+  "title": "Owner",
+  "phone": "555-0100",
+  "email": "alex@example.com",
+  "address": "123 Main Street",
+  "salesPerson": {
+    "name": "Sam Lee",
+    "phone": "555-0110",
+    "email": "sam@example.com"
+  }
+}
