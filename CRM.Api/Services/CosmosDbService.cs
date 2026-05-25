@@ -66,7 +66,7 @@ public class CosmosDbService
 
     public async Task UpdateCustomerAsync(Customer customer)
     {
-        await _container.UpsertItemAsync(customer, new PartitionKey(customer.Id));
+        await _container.ReplaceItemAsync(customer, customer.Id, new PartitionKey(customer.Id));
     }
     public async Task DeleteCustomerAsync(string id)
     {
